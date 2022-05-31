@@ -15,6 +15,9 @@ type typ =
   | TypC                             (* Type char                   *)
   | TypA of typ * int option         (* Array type                  *)
   | TypP of typ                      (* Pointer type                *)
+  | TypString                        (* Type string                 *)
+  | TypeFloat                        (* Type folat                  *)
+  | TypeVoid                         (* Type void                   *)
                                                                    
 and expr =                           // 表达式，右值                                                
   | Access of access                 (* x    or  *p    or  a[e]     *) //访问左值（右值）
@@ -26,6 +29,8 @@ and expr =                           // 表达式，右值
   | Andalso of expr * expr           (* Sequential and              *)
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
+  | ConstFloat of float32            (* constant float               *)
+
                                                                    
 and access =                         //左值，存储的位置                                            
   | AccVar of string                 (* Variable access        x    *) 
@@ -38,6 +43,8 @@ and stmt =
   | Expr of expr                     (* Expression statement   e;   *)
   | Return of expr option            (* Return from method          *)
   | Block of stmtordec list          (* Block: grouping and scope   *)
+  | For of expr * expr * expr * stmt (* normal for *)
+
   // 语句块内部，可以是变量声明 或语句的列表                                                              
 
 and stmtordec =                                                    
